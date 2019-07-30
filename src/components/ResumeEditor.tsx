@@ -72,14 +72,17 @@ class ResumeEditor extends React.Component {
             <Collapse
                 accordion
                 bordered={false}
-                defaultActiveKey='basic-info'
+                defaultActiveKey='1'
                 expandIconPosition='right'
+                style={{ backgroundColor: '#f5f5f5' }}
             >
                 {
                     panelList.map(
                         panel => <Panel
+                            className={styles['collapse-header']}
                             key={panel.key}
                             header={panel.header}
+                            style={{ borderBottom: 'none', marginBottom: '16px', backgroundColor: '#fff' }}
                         >
                             {renderPanelChildren(panel.component)}
                         </Panel>

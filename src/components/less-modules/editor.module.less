@@ -1,6 +1,23 @@
 .editor-container {
     flex: 1;
+
+    .collapse-header {
+        >[aria-expanded=true] { // 不能使用类名来选择激活的panel 会被css module加上hash
+            position: relative;
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 6px;
+                background-color: #3457a0;
+                height: 100%;
+                transform: width .3s;
+            }
+        }
+    }
 }
+
 .flex-row {
     width: 100%;
     display: flex;
@@ -8,6 +25,7 @@
     justify-content: space-between;
     padding: 0 16px;
 }
+
 .h2 {
     padding: 0 16px;
     margin-top: 24px;
