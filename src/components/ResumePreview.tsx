@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './css-modules/preview.module.css';
+import styles from './css-modules/preview.module.less';
 class ResumePreview extends React.Component {
     render() {
         return <div className={styles["preview-container"]}>
