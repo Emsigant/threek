@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './css-modules/preview.module.less';
+import styles from './less-modules/preview.module.less';
 class ResumePreview extends React.Component {
     render() {
-        return <div className={styles["preview-container"]}>
-            Resume Preview
+        return <div className={styles['preview-container']}>
+            preview
         </div>
     }
 }
