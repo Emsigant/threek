@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styles from './less-modules/editor.module.less';
-import { Collapse, List, Button } from 'antd';
+import { Collapse, Icon, Tooltip } from 'antd';
 const { Panel } = Collapse;
 interface Ipanel {
     header: ReactNode;
@@ -64,9 +64,19 @@ class ResumeEditor extends React.Component {
             disabledPanelList: newDisableList,
         })
     }
+    removeModule = (panel: Ipanel) => () => {
+        const newList = this.state.panelList.filter(i => {
+            return i.key !== panel.key;
+        });
+        const newDisableList = [...this.state.disabledPanelList, panel];
+        this.setState({
+            panelList: newList,
+            disabledPanelList: newDisableList,
+        })
+    }
     render() {
         const { panelList, disabledPanelList } = this.state;
-        const { addModule, renderPanelChildren } = this;
+        const { addModule, renderPanelChildren, removeModule } = this;
         return <div className={styles['editor-container']}>
             <h2 className={styles['h2']}>信息填写</h2>
             <Collapse
@@ -85,22 +95,32 @@ class ResumeEditor extends React.Component {
                             style={{ borderBottom: 'none', marginBottom: '16px', backgroundColor: '#fff' }}
                         >
                             {renderPanelChildren(panel.component)}
+                            <div className={styles['space-between']}>
+                                <a style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Icon type='plus' style={{ marginRight: '3px' }} />
+                                    添加
+                                </a>
+                                <a onClick={removeModule(panel)} style={{ color: '#ff4d4f' }}>
+                                    删除模块
+                                </a>
+                            </div>
                         </Panel>
                     )
                 }
             </Collapse>
             <h2 className={styles['h2']}>可添加模块</h2>
-            <List
-                dataSource={disabledPanelList}
-                renderItem={item => (
-                    <List.Item>
-                        <div className={styles['flex-row']}>
+            <div>
+                {
+                    disabledPanelList.map(
+                        item => <div className={styles['flex-row']} key={item.key}>
                             <span>{item.header}</span>
-                            <Button onClick={addModule(item)} type='primary'>添加</Button>
+                            <Tooltip title='添加模块'>
+                                <Icon type="plus" onClick={addModule(item)} />
+                            </Tooltip>
                         </div>
-                    </List.Item>
-                )}
-            />
+                    )
+                }
+            </div>
         </div>
     }
 }
